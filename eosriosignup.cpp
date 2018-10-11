@@ -63,8 +63,15 @@ void eosriosignup::transfer(account_name from, account_name to, asset quantity, 
     eosio_assert(separator_pos != string::npos, "SEP_FAIL");
 
     string owner_key_str = keys_str.substr(0,separator_pos);
-    string active_key_str = keys_str.substr(separator_pos + 1);
+    //string active_key_str = keys_str.substr(separator_pos + 1);
+    string active_key_str;
 
+    if ((separator_pos + 1) == string::npos){
+        active_key_str = owner_key_str;
+    }else{
+        active_key_str = keys_str.substr(separator_pos + 1);
+    }
+    
     string pubkey_prefix("EOS");
 
     auto pubkey_data_o = validate_key(owner_key_str);
